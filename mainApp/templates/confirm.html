@@ -1,0 +1,153 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load myCustomFilters %}
+
+
+{% block title %}
+<title>CLOTHY | Confirmation</title>
+{% endblock %}
+
+{% block body %}
+
+
+<!-- breadcrumb -->
+<div class="container m-t-100">
+	<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+		<a href="{% url 'home' %}" class="stext-109 cl8 hov-cl1 trans-04">
+			Home
+			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+		</a>
+
+		<a href="" class="stext-109 cl4">
+			confirmation
+		</a>
+	</div>
+</div>
+
+<div class="bg0 p-t-20 p-b-85">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5 m-lr-50 m-t-20" style="border: 1px solid black;">
+				<h2 class="text-center fs-20 p-tb-10" style="border-bottom: 1px solid black;">BILLING DETAILS</h2>
+				<table class="table">
+					<tr>
+						<th>Address:</th>
+						<td>{{buyer.address}}</td>
+					</tr>
+					<tr>
+						<th>City:</th>
+						<td>{{buyer.city}}</td>
+					</tr>
+					<tr>
+						<th>State:</th>
+						<td>{{buyer.state}}</td>
+					</tr>
+					<tr>
+						<th>Pin code:</th>
+						<td>{{buyer.pin}}</td>
+					</tr>
+					<tr>
+						<th>Phone No:</th>
+						<td>{{buyer.phone}}</td>
+					</tr>
+				</table>
+
+			</div>
+
+			<div class="col-md-5 m-lr-50 m-t-20" style="border: 1px solid black;">
+				<h2 class="text-center fs-20 p-tb-10" style="border-bottom: 1px solid black;">ORDER NUMBER</h2>
+				<table class="table">
+					<tr>
+						<th>Order Number:</th>
+						<td>{{checkout.id}}</td>
+					</tr>
+					<tr>
+						<th>Date:</th>
+						<td>{{checkout.date}}</td>
+					</tr>
+					<tr>
+						<th>Total:</th>
+						<td>{{checkout.total}}</td>
+					</tr>
+					<tr>
+						<th>Payment Method:</th>
+						<td>{{request|paymentMode:checkout.paymentMode}}</td>
+					</tr>
+					<tr>
+						<th>Phone No:</th>
+						<td>{{buyer.phone}}</td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+		<div class="col-md-12 m-t-50">
+			<div class="p-lr-20  p-tb-20" style="border: 1px solid black ">
+				<h2 class="text-center fs-20 p-tb-10" style="border-bottom: 1px solid black;">ORDER DETAILS</h2>
+				<table class="table table bordered">
+					<tr class="table_head">
+						<th>Product</th>
+						<th>price</th>
+						<th></th>
+						<th>Quantity</th>
+					</tr>
+					{% for item in cart %}
+					<tr class="table_row ">
+						<td>{{item.product.name}}</td>
+						<td>&#8377;{{item.product.finalprice}}</td>
+						<td>x</td>
+						<td>{{item.total}}</td>
+					</tr>
+					{% endfor %}
+				</table>
+				<hr style="border-bottom: 1px solid black">
+
+				<div class="flex-w flex-t bor12 p-b-13 p-t-13 ">
+					<div class="size-208">
+						<span class="stext-110 cl2">
+							Subtotal:
+						</span>
+					</div>
+
+					<div class="size-209 p-l-250">
+						<span class="mtext-110 cl2 ">
+							&#8377;{{subtotal}}
+						</span>
+					</div>
+				</div>
+
+				<div class="flex-w flex-t bor12 p-b-13 p-t-13 ">
+					<div class="size-208">
+						<span class="stext-110 cl2">
+							Shipping:
+						</span>
+					</div>
+
+					<div class="size-209 p-l-250">
+						<span class="mtext-110 cl2 ">
+							&#8377;{{shipping}}
+						</span>
+					</div>
+				</div>
+
+
+				<div class="flex-w flex-t p-t-27 p-b-33">
+					<div class="size-208">
+						<span class="mtext-101 cl2">
+							Total:
+						</span>
+					</div>
+
+					<div class="size-209  p-l-250">
+						<span class="mtext-110 cl2">
+							&#8377;{{total}}
+						</span>
+					</div>
+				</div>
+				<hr style="border-bottom: 1px solid black">
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

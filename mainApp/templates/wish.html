@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>CLOTHY | Wishlist</title>
+{% endblock %}
+
+
+{% block body %}
+
+
+<!-- breadcrumb -->
+<div class="container m-t-100">
+	<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+		<a href="{% url 'home' %}" class="stext-109 cl8 hov-cl1 trans-04">
+			Home
+			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+		</a>
+
+		<a href="" class="stext-109 cl4">
+			Wishlist
+		</a>
+	</div>
+</div>
+
+<form class="bg0 p-t-75 p-b-85">
+	<div class="container">
+		<div class="row">
+			{% if wishlist %}
+			<table class="table">
+				<tr>
+					<th class="column-1">Product</th>
+					<th class="column-2">Name</th>
+					<th class="column-3">Price</th>
+					<th class="column-4">Brand</th>
+					<th class="column-4">Color</th>
+					<th class="column-5">Size</th>
+					<th class="column-6 text-center">Add</th>
+					<th class="column-6 text-center">Remove</th>
+				</tr>
+				{% for item in wishlist %}
+				<tr>
+					<td class="column-1">
+						<div>
+							<img src="{{item.product.pic1.url}}" alt="IMG" width="100px" height="150px">
+						</div>
+					</td>
+					<td class="column-2">{{item.product.name}}</td>
+					<td class="column-3">&#8377;{{item.product.finalprice}}</td>
+					<td class="column-4">{{item.product.Brand.name}}</td>
+					<td class="column-5">{{item.product.color}}</td>
+					<td class="column-6">{{item.product.size}}
+					</td>
+					<td class="column-6 text-center"><a href="/product/{{item.product.id}}/"><i class="material-symbols-outlined" style="color: #295ce7;">
+						shopping_cart
+					</i></a></td>
+					<td class="column-6 text-center"><a href="/delete-wishlist/{{item.id}}/"><i class="material-symbols-outlined" style="color: black;">
+						delete
+						</i></a></td>
+				</tr>
+				{% endfor %}
+			</table>
+			{% else %}
+			<h2 class="text-center w-100 m-tb-80">No items in the list</h2>
+			{% endif %}
+		</div>
+	</div>
+</form>
+
+{% endblock %}

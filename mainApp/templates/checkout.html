@@ -1,0 +1,169 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block title %}
+<title>CLOTHY | Checkout</title>
+{% endblock %}
+
+{% block body %}
+
+
+<!-- breadcrumb -->
+<div class="container m-t-100">
+	<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+		<a href="{% url 'home' %}" class="stext-109 cl8 hov-cl1 trans-04">
+			Home
+			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+		</a>
+
+		<a href="" class="stext-109 cl4">
+			checkout
+		</a>
+	</div>
+</div>
+
+<section class="bg0 p-t-55 p-b-85">
+	<div class="container">
+		{% if cart %}
+		<div class="row">
+			<div class="col-md-6">
+				<h2 class="text-center fs-20" style="border-bottom: 1px solid black;">BILLING DETAILS</h2>
+				<table class="table">
+					<tr>
+						<th>Name:</th>
+						<td>{{buyer.name}}</td>
+					</tr>
+					<tr>
+						<th>Email id:</th>
+						<td>{{buyer.email}}</td>
+					</tr>
+					<tr>
+						<th>Phone No:</th>
+						<td>{{buyer.phone}}</td>
+					</tr>
+					<tr>
+						<th>Address:</th>
+						<td>{{buyer.address}}</td>
+					</tr>
+					<tr>
+						<th>Pin code:</th>
+						<td>{{buyer.pin}}</td>
+					</tr>
+					<tr>
+						<th>City:</th>
+						<td>{{buyer.city}}</td>
+					</tr>
+					<tr>
+						<th>State:</th>
+						<td>{{buyer.state}}</td>
+					</tr>
+					<tr>
+						<td colspan="2"><a href="{% url 'update-profile' %}" class="btn btn-primary w-100 btn-sm">Update
+								Profile</a></td>
+					</tr>
+
+				</table>
+
+			</div>
+			<div class="col-md-6 p-l-40">
+				<div class="p-lr-20  p-tb-20" style="border: 1px solid black ">
+					<h4 class="mtext-109 cl2 m-b-20" style="border-bottom: 2px solid black;">
+						YOUR ORDER
+					</h4>
+					<table class="table table bordered">
+						<tr class="table_head">
+							<th>Product</th>
+							<th>price</th>
+							<th></th>
+							<th>Quantity</th>
+						</tr>
+						{% for item in cart.values %}
+						<tr class="table_row ">
+							<td>{{item.name}}</td>
+							<td>&#8377;{{item.price}}</td>
+							<td>x</td>
+							<td class="text-center">{{item.qty}}</td>
+						</tr>
+						{% endfor %}
+					</table>
+					<hr style="border-bottom: 1px solid black">
+
+					<div class="flex-w flex-t bor12 p-b-13 p-t-13 ">
+						<div class="size-208">
+							<span class="stext-110 cl2">
+								Subtotal:
+							</span>
+						</div>
+
+						<div class="size-209  p-l-250">
+							<span class="mtext-110 cl2">
+								&#8377;{{subtotal}}
+							</span>
+						</div>
+					</div>
+
+					<div class="flex-w flex-t bor12 p-b-13 p-t-13 ">
+						<div class="size-208">
+							<span class="stext-110 cl2">
+								Shipping:
+							</span>
+						</div>
+
+						<div class="size-209 p-l-250">
+							<span class="mtext-110 cl2 ">
+								&#8377;{{shipping}}
+							</span>
+						</div>
+					</div>
+
+
+					<div class="flex-w flex-t p-t-27 p-b-33">
+						<div class="size-208">
+							<span class="mtext-101 cl2">
+								Total:
+							</span>
+						</div>
+
+						<div class="size-209  p-l-250">
+							<span class="mtext-110 cl2">
+								&#8377;{{total}}
+							</span>
+						</div>
+					</div>
+					<hr style="border-bottom: 1px solid black">
+
+					<form action="" method="post">
+						{% csrf_token %}
+						<div class="payment-item">
+							<div class="form-check p-l-15 fs-15 p-b-10">
+								<input class="form-check-input" type="radio" name="mode" id="cod" checked value="cod">
+								<label class="form-check-label" for="cod">
+									Cash on Delivery
+								</label>
+							</div>
+							<div class="form-check p-l-15 fs-15 p-b-20">
+								<input class="form-check-input" type="radio" name="mode" id="netbanking" value="netbanking">
+								<label class="form-check-label" for="netbanking">
+									NetBanking/Card/UPI
+								</label>
+							</div>
+							<button type="submit" class="btn w-100 btn-primary">
+								Place order
+							</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		{% else %}
+		<h2 class="text-center w-100 m-tb-50">No items in the list</h2>
+		<h5 class="text-center w-100 m-b-200"><span class="material-symbols-outlined text-primary "
+				style="position: relative; top: 4px;">
+				shopping_bag
+			</span><a class="p-b-100" href="/shop/All/All/All/">Shop Now</a></h5>
+		{% endif %}
+	</div>
+
+</section>
+
+{% endblock %}

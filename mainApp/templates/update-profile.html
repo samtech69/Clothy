@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block title %}
+<title>CLOTHY | Update Profile</title>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container m-t-80 m-b-160">
+	<div class="row">
+		<div class="col-md-6">
+			{% if buyer.pic %}
+			<img src="{{buyer.pic.url}}" height="65%" width="65%" class="m-l-50 m-t-50" alt="">
+			{% else %}
+			<img src="{% static 'images/userpic1.png' %}" height="65%" width="65%" class="m-l-50 m-t-100" alt="">
+			{% endif %}
+		</div>
+
+		{% if messages %}
+		{% for msg in messages %}
+		<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		{% endfor %}
+		{% endif %}
+		<div class=" col-md-6">
+			<form action="" method="post" novalidate="novalidate" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="  m-b-50 m-tb-10 p-tb-40 ">
+					<div><input class="form-control m-b-30 " id="name" name="name" type="text" value="{{buyer.name}}"
+							placeholder="Enter Full Name"></div>
+					<div><input class="form-control m-b-30 " id="email" name="email" type="email"
+							value="{{buyer.email}}" placeholder="Enter Email id"></div>
+					<div><input class="form-control m-b-30 " id="phone" name="phone" type="text" value="{{buyer.phone}}"
+							placeholder="Enter Phone Number"></div>
+					<div><textarea name="address" placeholder="Enter Address" class="form-control m-b-30"
+							rows="3">{{buyer.address}}</textarea></div>
+					<div><input class="form-control m-b-30 " id="pin" name="pin" type="number" value="{{buyer.pin}}"
+							placeholder="Enter Pin"></div>
+					<div><input class="form-control m-b-30 " id="city" name="city" type="text" value="{{buyer.city}}"
+							placeholder="Enter City"></div>
+					<div><input class="form-control m-b-30 " id="state" name="state" type="text" value="{{buyer.state}}"
+							placeholder="Enter State"></div>
+					<div><input class=" m-b-30 " name="pic" type="file" id="pic"></div>
+					<button type="submit" value="submit" class="btn btn-primary w-100 btn-sm">Update</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
