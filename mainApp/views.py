@@ -17,6 +17,7 @@ def homepage(Request):
     return render(Request, 'index.html', {'products': products})
 
 
+
 def LoginPage(Request):
     if (Request.method == "POST"):
         username = Request.POST.get("username")
