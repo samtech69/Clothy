@@ -13,7 +13,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 def homepage(Request):
-    products = Product.objects.all().order_by("-id")[0:12]
+    products = Product.objects.all().order_by("id")[0:12]
     return render(Request, 'index.html', {'products': products})
 
 
